@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import csv
 
 root = Tk()
 root.title('Hospital System')
@@ -17,6 +18,7 @@ login_password_string = StringVar()
 register_email = StringVar()
 register_retype_email = StringVar()
 register_password = StringVar()
+error_message = StringVar()
 
 
 # Login page
@@ -53,15 +55,20 @@ def register_form():
     entry_retype_email = Entry(register_frame, textvariable=register_retype_email, validate='focusout', validatecommand=check_email).grid(column=1, row=1, pady=5)
     label_password = Label(register_frame, text='Password: ').grid(column=0, row=2, pady=5)
     entry_password = Entry(register_frame, show="*", textvariable=register_password).grid(column=1, row=2, pady=5)
-
+        
     # Buttons
-    btn_register = Button(register_frame, text="Register").grid(column=0, row=3)
+    btn_register = Button(register_frame, text="Register", command=add_registration).grid(column=0, row=3)
     btn_cancel = Button(register_frame, text="Cancel", command=register_window.destroy).grid(column=1, row=3)
 
     # Pack
     register_frame.pack()
     
-    
+# DEZE MOET NOG WERKEND GEMAAKT WORDEN!!
+def add_registration(): 
+    with open('les3/users.csv', 'a', newline='') as f:
+        f.write([register_email, register_password])
+        f.close
+
 def check_email():
     if '@' not in register_email.get():
         messagebox.showerror('Error', 'Dit is geen geldig e-mail adres.')

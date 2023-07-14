@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import messagebox
+import csv
 
 root = Tk()
 root.geometry('300x200')
@@ -45,9 +46,11 @@ def register_window():
     register_frame.pack()
     
 def register_user():
-    with open('user.txt', 'a') as f:
-        f.write(reg_email.get() + ", " + reg_password.get() + ";\n")
-        f.close()
+    with open('les3/user.txt', 'a') as f:
+        fieldname = ['Username', 'Password']
+        user = [reg_email.get(), reg_password.get()]
+        writer = csv.writer(csvfile, fieldname=fieldname)
+        writer.writerow(user)
 
 
 # Login widgets
