@@ -18,7 +18,7 @@ land = StringVar()
 # Make Database
 
 try:
-    sqlite_connection = sqlite3.connect('les4/adressen.db')
+    sqlite_connection = sqlite3.connect('les5/NAW_gegevens_les5.db')
     sqlite_create_adres_query = """
         CREATE TABLE IF NOT EXISTS `adressen` (
             `id_adres` INTEGER PRIMARY KEY AUTOINCREMENT,
