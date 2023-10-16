@@ -6,13 +6,13 @@ from tkinter import messagebox
 # Root
 root = tk.Tk()
 root.title("Huiswerk les 5 || NHA Software Developer")
-# root.geometry('300x600')
+root.geometry('1200x800')
+root.minsize(1200, 800)
 
 ### Variabelen
 
 login_email = tk.StringVar()
 login_wachtwoord = tk.StringVar()
-
 
 # Registreer variabelen
 email = tk.StringVar()
@@ -89,7 +89,6 @@ def make_values_combobox():
 def set_data():
     global db_list
     selected_value = combobox_box.get()
-    print(selected_value[0])
     for item in db_list:
         if str(item[0]) == selected_value[0]:
             email.set(item[1])
@@ -107,71 +106,86 @@ def clear_data():
     adres.set('')
     postcode.set('')
     land.set('')
-    
-    
-# Inlog Frame
-login_frame = ttk.Frame(root, relief='groove', padding=10)
-login_email_label = ttk.Label(login_frame, text='E-mail:')
-login_email_entry = ttk.Entry(login_frame)
-login_wachtwoord_label = ttk.Label(login_frame, text='Wachtwoord: ')
-login_wachtwoord_entry = ttk.Entry(login_frame)
-login_login_button = ttk.Button(login_frame, text='Login')
-login_cancel_button = ttk.Button(login_frame, text='Annuleer')
 
-# Inlog Frame Placement
-login_frame.pack(fill='x')
-login_email_label.grid(row=0, column=0, pady=5, padx=5, sticky='w')
-login_email_entry.grid(row=0, column=1, pady=5, padx=5)
-login_wachtwoord_label.grid(row=1, column=0, pady=5, padx=5, sticky='w')
-login_wachtwoord_entry.grid(row=1, column=1, pady=5, padx=5)
-login_login_button.grid(row=2, column=0, pady=5, padx=5, sticky='e')
-login_cancel_button.grid(row=2, column=1, pady=5, padx=5, sticky='e')
 
-# Registreer Frame
-register_frame = ttk.Frame(root, relief='groove', padding=10)
-register_email_label = ttk.Label(register_frame, text='E-Mail:')
-register_email_entry = ttk.Entry(register_frame, textvariable=email)
-register_voornaam_label = ttk.Label(register_frame, text='Voornaam:')
-register_voornaam_entry = ttk.Entry(register_frame, textvariable=voornaam)
-register_achternaam_label = ttk.Label(register_frame, text='Achternaam:')
-register_achternaam_entry = ttk.Entry(register_frame, textvariable=achternaam)
-register_adres_label = ttk.Label(register_frame, text='Adres:')
-register_adres_entry = ttk.Entry(register_frame, textvariable=adres)
-register_postcode_label = ttk.Label(register_frame, text='Postcode:')
-register_postcode_entry = ttk.Entry(register_frame, textvariable=postcode,)
-register_land_label = ttk.Label(register_frame, text='Land:')
-register_land_entry = ttk.Entry(register_frame, textvariable=land)
-register_registreer_button = ttk.Button(register_frame, text='Registreer', command=insert_into_database)
-register_cancel_button = ttk.Button(register_frame, text='Annuleer / Clear', command=clear_data)
+# Inlog Window
+def login_window():
+    login_frame = tk.Toplevel(root)
+    login_email_label = ttk.Label(login_frame, text='E-mail:')
+    login_email_entry = ttk.Entry(login_frame)
+    login_wachtwoord_label = ttk.Label(login_frame, text='Wachtwoord: ')
+    login_wachtwoord_entry = ttk.Entry(login_frame)
+    login_login_button = ttk.Button(login_frame, text='Login')
+    login_cancel_button = ttk.Button(login_frame, text='Annuleer')
 
-# Register Frane Placement
-register_frame.pack(fill='x')
-register_email_label.grid(column=0, row=0, padx=5, pady=5, sticky='w')
-register_email_entry.grid(column=1, row=0, padx=5, pady=5)
-register_voornaam_label.grid(column=0, row=1, padx=5, pady=5, sticky='w')
-register_voornaam_entry.grid(column=1, row=1, padx=5, pady=5)
-register_achternaam_label.grid(column=0, row=2, padx=5, pady=5, sticky='w')
-register_achternaam_entry.grid(column=1, row=2, padx=5, pady=5)
-register_adres_label.grid(column=0, row=3, padx=5, pady=5, sticky='w')
-register_adres_entry.grid(column=1, row=3, padx=5, pady=5)
-register_postcode_label.grid(column=0, row=4, padx=5, pady=5, sticky='w')
-register_postcode_entry.grid(column=1, row=4, padx=5, pady=5)
-register_land_label.grid(column=0, row=5, padx=5, pady=5, sticky='w')
-register_land_entry.grid(column=1, row=5, padx=5, pady=5)
-register_registreer_button.grid(column=0, row=6, padx=5, pady=5, sticky='e')
-register_cancel_button.grid(column=1, row=6, padx=5, pady=5, sticky='e')
+    # Inlog Frame Placement
+    login_email_label.grid(row=0, column=0, pady=5, padx=5, sticky='w')
+    login_email_entry.grid(row=0, column=1, pady=5, padx=5)
+    login_wachtwoord_label.grid(row=1, column=0, pady=5, padx=5, sticky='w')
+    login_wachtwoord_entry.grid(row=1, column=1, pady=5, padx=5)
+    login_login_button.grid(row=2, column=0, pady=5, padx=5, sticky='e')
+    login_cancel_button.grid(row=2, column=1, pady=5, padx=5, sticky='e')
+
+# Registreer Window
+def register_window():
+    register_frame = tk.Toplevel(root)
+    register_email_label = ttk.Label(register_frame, text='E-Mail:')
+    register_email_entry = ttk.Entry(register_frame, textvariable=email)
+    register_voornaam_label = ttk.Label(register_frame, text='Voornaam:')
+    register_voornaam_entry = ttk.Entry(register_frame, textvariable=voornaam)
+    register_achternaam_label = ttk.Label(register_frame, text='Achternaam:')
+    register_achternaam_entry = ttk.Entry(register_frame, textvariable=achternaam)
+    register_adres_label = ttk.Label(register_frame, text='Adres:')
+    register_adres_entry = ttk.Entry(register_frame, textvariable=adres)
+    register_postcode_label = ttk.Label(register_frame, text='Postcode:')
+    register_postcode_entry = ttk.Entry(register_frame, textvariable=postcode,)
+    register_land_label = ttk.Label(register_frame, text='Land:')
+    register_land_entry = ttk.Entry(register_frame, textvariable=land)
+    register_registreer_button = ttk.Button(register_frame, text='Registreer', command=insert_into_database)
+    register_cancel_button = ttk.Button(register_frame, text='Annuleer / Clear', command=clear_data)
+
+    # Register Frane Placement
+    register_email_label.grid(column=0, row=0, padx=5, pady=5, sticky='w')
+    register_email_entry.grid(column=1, row=0, padx=5, pady=5)
+    register_voornaam_label.grid(column=0, row=1, padx=5, pady=5, sticky='w')
+    register_voornaam_entry.grid(column=1, row=1, padx=5, pady=5)
+    register_achternaam_label.grid(column=0, row=2, padx=5, pady=5, sticky='w')
+    register_achternaam_entry.grid(column=1, row=2, padx=5, pady=5)
+    register_adres_label.grid(column=0, row=3, padx=5, pady=5, sticky='w')
+    register_adres_entry.grid(column=1, row=3, padx=5, pady=5)
+    register_postcode_label.grid(column=0, row=4, padx=5, pady=5, sticky='w')
+    register_postcode_entry.grid(column=1, row=4, padx=5, pady=5)
+    register_land_label.grid(column=0, row=5, padx=5, pady=5, sticky='w')
+    register_land_entry.grid(column=1, row=5, padx=5, pady=5)
+    register_registreer_button.grid(column=0, row=6, padx=5, pady=5, sticky='e')
+    register_cancel_button.grid(column=1, row=6, padx=5, pady=5, sticky='e')
+
+# Combobox Scherm
+def combobox_window():
+    combobox_frame = tk.Toplevel(root)
+    combobox_label = ttk.Label(combobox_frame, text='Kies hier een gebruiker uit de database om de gegevens in het registreer veld te tonen.')
+    combobox_box = ttk.Combobox(combobox_frame, values=naam_list, postcommand=make_values_combobox)
+    combobox_button = ttk.Button(combobox_frame, text='Get data', command=set_data)
+
+    # Combobox Placement
+    combobox_label.pack()
+    combobox_box.pack(pady=10)
+    combobox_button.pack(pady=10)
+
+
+# Ontvangst Scherm
+start_label = ttk.Label(root, text='Welkom bij het ziekenhuis')
+start_login_button = ttk.Button(root, text='Login', command=login_window)
+start_register_button = ttk.Button(root, text='Registreer', command=register_window)
+start_combobox_button = ttk.Button(root, text='Haal gegevens op', command=combobox_window)
+
+# Ontvangst Scherm Placement
+start_label.place(relx=0.1, rely=0.1)
+start_combobox_button.place(rely=0.1, relx=0.9)
+start_register_button.place(rely=0.1, relx=0.7)
+start_login_button.place(rely=0.1, relx=0.8)
 
 # Combobox Frame
-combobox_frame = ttk.Frame(root, relief='groove', padding=10)
-combobox_label = ttk.Label(combobox_frame, text='Kies hier een gebruiker uit de database om de gegevens in het registreer veld te tonen.')
-combobox_box = ttk.Combobox(combobox_frame, values=naam_list, postcommand=make_values_combobox)
-combobox_button = ttk.Button(combobox_frame, text='Get data', command=set_data)
-
-# Combobox Placement
-combobox_frame.pack(fill='both')
-combobox_label.pack()
-combobox_box.pack(pady=10)
-combobox_button.pack(pady=10)
 
 
 # Get data from database
