@@ -106,7 +106,13 @@ def clear_data():
     adres.set('')
     postcode.set('')
     land.set('')
-
+    
+def check_is_email():
+    if '@' and '.' in email.get():
+        return True
+    else:
+        messagebox.showerror(message='Geen geldige e-mailadres ingevoerd.')
+        return True 
 
 # Inlog Window
 def login_window():
@@ -130,7 +136,7 @@ def login_window():
 def register_window():
     register_frame = tk.Toplevel(root)
     register_email_label = ttk.Label(register_frame, text='E-Mail:')
-    register_email_entry = ttk.Entry(register_frame, textvariable=email)
+    register_email_entry = ttk.Entry(register_frame, textvariable=email, validate='focusout', validatecommand=check_is_email)
     register_voornaam_label = ttk.Label(register_frame, text='Voornaam:')
     register_voornaam_entry = ttk.Entry(register_frame, textvariable=voornaam)
     register_achternaam_label = ttk.Label(register_frame, text='Achternaam:')
@@ -160,38 +166,37 @@ def register_window():
     register_registreer_button.grid(column=0, row=6, padx=5, pady=5, sticky='e')
     register_cancel_button.grid(column=1, row=6, padx=5, pady=5, sticky='e')
 
-# Combobox Scherm
-def combobox_window():
-    combobox_frame = tk.Toplevel(root)
-    combobox_label = ttk.Label(combobox_frame, text='Kies hier een gebruiker uit de database om de gegevens in het registreer veld te tonen.')
-    combobox_box = ttk.Combobox(combobox_frame, values=naam_list, postcommand=make_values_combobox)
-    combobox_button = ttk.Button(combobox_frame, text='Get data', command=set_data)
-
-    # Combobox Placement
-    combobox_label.pack()
-    combobox_box.pack(pady=10)
-    combobox_button.pack(pady=10)
-
-
 # Ontvangst Scherm
-start_label = ttk.Label(root, text='Welkom bij het ziekenhuis')
-start_login_button = ttk.Button(root, text='Login', command=login_window)
-start_register_button = ttk.Button(root, text='Registreer', command=register_window)
-start_combobox_button = ttk.Button(root, text='Haal gegevens op', command=combobox_window)
+start_frame = tk.Frame(root, relief='ridge', padx=10, pady=10)
+start_label = ttk.Label(start_frame, text='Welkom bij het ziekenhuis')
+start_login_button = ttk.Button(start_frame, text='Login', command=login_window)
+start_register_button = ttk.Button(start_frame, text='Registreer', command=register_window)
 
 # Ontvangst Scherm Placement
-start_label.place(relx=0.1, rely=0.1)
-start_combobox_button.place(rely=0.1, relx=0.9)
-start_register_button.place(rely=0.1, relx=0.7)
-start_login_button.place(rely=0.1, relx=0.8)
+start_frame.pack(fill='x')
+start_label.pack(side='left', padx=40, pady=20)
+start_register_button.pack(side='right', padx=20, pady=20)
+start_login_button.pack(side='right', padx=20, pady=20)
 
-# Combobox Frame
+# Combobox Scherm
+combobox_frame = tk.Frame(root)
+combobox_label = ttk.Label(combobox_frame, text='Kies hier een gebruiker uit de database om de gegevens in het registreer veld te tonen.')
+combobox_box = ttk.Combobox(combobox_frame, values=naam_list, postcommand=make_values_combobox)
+combobox_button = ttk.Button(combobox_frame, text='Get data', command=set_data)
+
+# Combobox Placement
+combobox_frame.pack()
+combobox_label.pack()
+combobox_box.pack(pady=10)
+combobox_button.pack(pady=10)
+
+
+
+
 
 
 # Get data from database
 get_data_from_database()
-
-
 
 # Mainloop
 root.mainloop()
