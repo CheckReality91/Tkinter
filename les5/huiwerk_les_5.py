@@ -10,11 +10,12 @@ root.geometry('1200x800')
 root.minsize(1200, 800)
 
 ### Variabelen
-
+# Login Variabelen
 login_email = tk.StringVar()
 login_wachtwoord = tk.StringVar()
 
 # Registreer variabelen
+
 email = tk.StringVar()
 voornaam = tk.StringVar()
 achternaam = tk.StringVar()
@@ -81,7 +82,7 @@ def make_values_combobox():
     naam_list = []
     
     for item in db_list:
-        naam_list.append(f"{item[0]} {item[1]} {item[2]}")
+        naam_list.append(f"{item[2]}")
     combobox_box['values'] = naam_list
     print('New Combobox Values Made')
 
@@ -90,16 +91,18 @@ def set_data():
     global db_list
     selected_value = combobox_box.get()
     for item in db_list:
-        if str(item[0]) == selected_value[0]:
-            email.set(item[1])
-            voornaam.set(item[2])
-            achternaam.set(item[3])
-            adres.set(item[4])
-            postcode.set(item[5])
-            land.set(item[6])
-            
+        if item[2] == selected_value:
+            voornaam.set(item[1])
+            achternaam.set(item[2])
+            adres.set(item[3])
+            postcode.set(item[4])
+            land.set(item[5])
+            email.set(item[6])
             
 def clear_data():
+    """
+    Functie voor de annuleer/clear button op het registratiescherm. Alle StringVar() worden op een lege string gezet
+    """
     email.set('')
     voornaam.set('')
     achternaam.set('')
@@ -190,6 +193,36 @@ combobox_label.pack()
 combobox_box.pack(pady=10)
 combobox_button.pack(pady=10)
 
+# NAW-Gegevens Scherm
+gegevens_frame = tk.Frame(root)
+gegevens_email_label = ttk.Label(gegevens_frame, text='E-mail:')
+gegevens_email_data = ttk.Label(gegevens_frame, textvariable=email)
+gegevens_voornaam_label = ttk.Label(gegevens_frame, text='Voornaam:')
+gegevens_voornaam_data = ttk.Label(gegevens_frame, textvariable=voornaam)
+gegevens_achternaam_label = ttk.Label(gegevens_frame, text='Achternaam:')
+gegevens_achternaam_data = ttk.Label(gegevens_frame, textvariable=achternaam)
+gegevens_adres_label = ttk.Label(gegevens_frame, text='Adres:')
+gegevens_adres_data = ttk.Label(gegevens_frame, textvariable=adres)
+gegevens_postcode_label = ttk.Label(gegevens_frame, text='Postcode:')
+gegevens_postcode_data = ttk.Label(gegevens_frame, textvariable=postcode)
+gegevens_land_label = ttk.Label(gegevens_frame, text='Land:')
+gegevens_land_data = ttk.Label(gegevens_frame, textvariable=land)
+
+
+# NAW-Gegevens Placement
+gegevens_frame.pack()
+gegevens_email_label.grid(row=0, column=0, sticky='w')
+gegevens_email_data.grid(row=0, column=1, sticky='w')
+gegevens_voornaam_data.grid(row=1, column=1, sticky='w')
+gegevens_voornaam_label.grid(row=1, column=0, sticky='w')
+gegevens_achternaam_label.grid(row=2, column=0, sticky='w')
+gegevens_achternaam_data.grid(row=2, column=1, sticky='w')
+gegevens_adres_label.grid(row=3, column=0, sticky='w')
+gegevens_adres_data.grid(row=3, column=1, sticky='w')
+gegevens_postcode_label.grid(row=4, column=0, sticky='w')
+gegevens_postcode_data.grid(row=4, column=1, sticky='w')
+gegevens_land_label.grid(row=5, column=0, sticky='w')
+gegevens_land_data.grid(row=5, column=1, sticky='w')
 
 
 
