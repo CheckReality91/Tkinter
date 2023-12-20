@@ -255,8 +255,8 @@ gegevens_land_data = ttk.Label(gegevens_frame, textvariable=land)
 gegevens_frame.pack()
 gegevens_email_label.grid(row=0, column=0, sticky="w")
 gegevens_email_data.grid(row=0, column=1, sticky="w")
-gegevens_voornaam_data.grid(row=1, column=1, sticky="w")
 gegevens_voornaam_label.grid(row=1, column=0, sticky="w")
+gegevens_voornaam_data.grid(row=1, column=1, sticky="w")
 gegevens_achternaam_label.grid(row=2, column=0, sticky="w")
 gegevens_achternaam_data.grid(row=2, column=1, sticky="w")
 gegevens_adres_label.grid(row=3, column=0, sticky="w")
@@ -266,6 +266,7 @@ gegevens_postcode_data.grid(row=4, column=1, sticky="w")
 gegevens_land_label.grid(row=5, column=0, sticky="w")
 gegevens_land_data.grid(row=5, column=1, sticky="w")
 
+
 # Listbox Scherm
 
 # De waardes voor in de listbox
@@ -274,43 +275,59 @@ lbo_aandoeningen = ['Leukemie', 'Jicht', 'Astma',
 lbo_artsen = ['Dr. van Bemmel', 'Dr. Njoo',
               'Mevr. de Vries', 'Dr. Jansen', 'Dr. Smit']
 
-# De Stringvars()
 
-# Functie voor het selecteren van de waardes in de listbox en ook en plaatsen van de label onder de boxen als de twee waardes zijn geselecteerd.
+# Functie voor het selecteren van de waardes in de listbox en ook en plaatsen van de label onder de boxen als de waardes zijn geselecteerd.
+
+def item_selected_aandoening(event):
+    selected_indice = lbo_box_aandoeningen.curselection()
+    for i in selected_indice:
+        aandoening_string = lbo_aandoeningen[i]
+    lbo_label_info_aandoening.config(
+        text=f'voor een behandeling voor {aandoening_string}')
 
 
-def items_selected(event):
-    selected_indice_aandoening = lbo_box_aandoeningen.curselection()
-    selected_indice_arts = lbo_box_artsen.curselection()
+def item_selected_arts(event):
+    selected_indice = lbo_box_artsen.curselection()
+    for i in selected_indice:
+        arts_string = lbo_artsen[i]
+    lbo_label_info_arts.config(text=f'U heeft gekozen voor {arts_string}')
 
 
 # Widgets voor de listbox
-lbo_frame = tk.Frame(root)
+lbo_frame = tk.Frame(root, padx=10, pady=10)
 lbo_label_intro = tk.Label(
     lbo_frame, text='Kies hier uw aandoeningen en gewenste arts.')
 lbo_box_aandoeningen = tk.Listbox(
     lbo_frame, height=10, selectmode='single', exportselection=0)
 lbo_box_artsen = tk.Listbox(
     lbo_frame, height=10, selectmode='single', exportselection=0)
+lbo_label_info_aandoening = tk.Label(
+    lbo_frame, text='')
+lbo_label_info_arts = tk.Label(
+    lbo_frame, text='')
 
 # Event Binding voor de listboxen
-lbo_box_aandoeningen.bind('<<ListboxSelect>>', items_selected)
-lbo_box_artsen.bind('<<ListboxSelect>>', items_selected)
+lbo_box_aandoeningen.bind('<<ListboxSelect>>', item_selected_aandoening)
+lbo_box_artsen.bind('<<ListboxSelect>>', item_selected_arts)
 
 # Vul de boxen met de waardes u de lists
+i = 0
 for aandoening in lbo_aandoeningen:
-    i = 0
     lbo_box_aandoeningen.insert(i, aandoening)
+    i += 1
 
+i = 0
 for arts in lbo_artsen:
-    i = 0
     lbo_box_artsen.insert(i, arts)
+    i += 1
 
 #  Placement op het scherm voor de listbox
 lbo_frame.pack(pady=10)
 lbo_label_intro.grid(row=0, column=0)
 lbo_box_aandoeningen.grid(row=1, column=0, sticky='w')
 lbo_box_artsen.grid(row=1, column=1, sticky='w')
+lbo_label_info_arts.grid(row=2, column=0, sticky='e', pady=10)
+lbo_label_info_aandoening.grid(row=2, column=1, sticky='w', pady=10)
 
 
 # Get data from database
