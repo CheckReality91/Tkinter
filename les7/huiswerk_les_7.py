@@ -330,6 +330,17 @@ lbo_label_info_arts.grid(row=2, column=0, sticky='e', pady=10)
 lbo_label_info_aandoening.grid(row=2, column=1, sticky='w', pady=10)
 
 
+# Radio Button.
+rbo_frame = tk.Frame(root)
+rbo_label_intro = tk.Label(
+    rbo_frame, text="Die is een label voor de radiobutton.")
+
+
+# Placement radio buttons
+rbo_frame.pack()
+rbo_label_intro.grid(row=0, column=0)
+
+
 # Get data from database
 get_data_from_database()
 
