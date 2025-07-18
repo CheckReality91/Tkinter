@@ -72,6 +72,7 @@ def insert_into_database():
         )
         database_connection.commit()
         print("Entry Inserted in Database")
+        cursor.close()
 
 
 def get_data_from_database():
@@ -136,6 +137,7 @@ def check_is_email():
 
 def login_window():
     login_frame = tk.Toplevel(root)
+    login_frame.geometry("400x200")
     login_email_label = ttk.Label(login_frame, text="E-mail:")
     login_email_entry = ttk.Entry(login_frame)
     login_wachtwoord_label = ttk.Label(login_frame, text="Wachtwoord: ")
@@ -326,19 +328,27 @@ lbo_frame.pack(pady=10)
 lbo_label_intro.grid(row=0, column=0)
 lbo_box_aandoeningen.grid(row=1, column=0, sticky='w')
 lbo_box_artsen.grid(row=1, column=1, sticky='w')
-lbo_label_info_arts.grid(row=2, column=0, sticky='e', pady=10)
-lbo_label_info_aandoening.grid(row=2, column=1, sticky='w', pady=10)
+lbo_label_info_arts.grid(row=2, column=0, sticky='e')
+lbo_label_info_aandoening.grid(row=2, column=1, sticky='w')
 
 
 # Radio Button.
 rbo_frame = tk.Frame(root)
 rbo_label_intro = tk.Label(
-    rbo_frame, text="Die is een label voor de radiobutton.")
+    rbo_frame, text="Waar moet de data vandaan gehaald worden?")
+rbo_btn_var = tk.StringVar()
+rbo_btn_database = tk.Radiobutton(rbo_frame, text='Database', variable=rbo_btn_var, value="database")
+rbo_btn_bestand = tk.Radiobutton(rbo_frame, text='Bestand', variable=rbo_btn_var, value="bestand")
+rbo_btn_textveld = tk.Radiobutton(rbo_frame, text='Tekstveld', variable=rbo_btn_var, value="tekstveld")
+
 
 
 # Placement radio buttons
 rbo_frame.pack()
-rbo_label_intro.grid(row=0, column=0)
+rbo_label_intro.grid(row=0, column=1)
+rbo_btn_database.grid(row=1, column=0)
+rbo_btn_bestand.grid(row=1, column=1)
+rbo_btn_textveld.grid(row=1, column=2)
 
 
 # Get data from database
