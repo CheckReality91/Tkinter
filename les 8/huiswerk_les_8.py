@@ -16,7 +16,11 @@ def make_empty_mockup_screen() :
 
 def write_file():
     # Write to a file
-
+    path_to_save = filedialog.asksaveasfilename(defaultextension='.txt')
+    content = textfield.get("1.0", tk.END)
+    with open(path_to_save, 'w') as file:
+        file.write(content)
+    
     # De data uit en entryfield moet gepakt worden
     # Er moet een manier komen om een andere bestandsnaam te geven zodat er meerdere bestand gemaakt kunnen worden.
     print('Doet nog niks')
@@ -32,10 +36,10 @@ def open_file() :
     else:
         print('Er is geen .txt bestand geslecteerd')
     
+def menu_maker() :
 
     
 
-def menu_maker() :
     ### Makes the menu
     # Menubar
     menubar = tk.Menu(root, tearoff=0)
@@ -44,8 +48,8 @@ def menu_maker() :
     filemenu = tk.Menu(menubar, tearoff=0)
     filemenu.add_command(label="New", command=make_empty_mockup_screen)
     filemenu.add_command(label="Open", command=open_file) # Wat moet ik met de data doen als ik het open?
-    filemenu.add_command(label="Save", command=make_empty_mockup_screen)
-    filemenu.add_command(label="Save as...", command=make_empty_mockup_screen)
+    filemenu.add_command(label="Save", command=write_file)
+    filemenu.add_command(label="Save as...", command=write_file)
     filemenu.add_command(label="Quit", command=root.quit)
 
     # Edit menu
