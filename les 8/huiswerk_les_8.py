@@ -3,9 +3,8 @@ from tkinter import filedialog
 
 # Make root
 root = tk.Tk()
-root.title('NHA les 8 / Menubar')
+root.title('NHA les 8 / Menubar / Laurens Schaap')
 root.geometry('600x300')
-
 ### Functions
 
 def make_empty_mockup_screen() :
@@ -23,20 +22,26 @@ def write_file():
     
     # De data uit en entryfield moet gepakt worden
     # Er moet een manier komen om een andere bestandsnaam te geven zodat er meerdere bestand gemaakt kunnen worden.
-    print('Doet nog niks')
 
 def open_file() :
     # opent een tekstbestand
     file_to_open = filedialog.askopenfilename() # Hier krijg ik de filename. Die kan ik daarna gebruiken om te openen naar het entryfield.
     #check of het een .txt file is.
     if file_to_open[-4:] == ".txt":
+        # Maak het veld leeg
+        textfield.delete('1.0', tk.END)
         # Open het bestand en zet het in de Text widget
         file = open(file_to_open)
         textfield.insert('1.0', file.read())
     else:
         print('Er is geen .txt bestand geslecteerd')
+
+def make_new_file():
+    #clears the textfield so the user has a empty field to type in.
+    textfield.delete('1.0', tk.END)
     
 def menu_maker() :
+
 
     
 
@@ -46,7 +51,7 @@ def menu_maker() :
 
     # Filemenu
     filemenu = tk.Menu(menubar, tearoff=0)
-    filemenu.add_command(label="New", command=make_empty_mockup_screen)
+    filemenu.add_command(label="New", command=make_new_file)
     filemenu.add_command(label="Open", command=open_file) # Wat moet ik met de data doen als ik het open?
     filemenu.add_command(label="Save", command=write_file)
     filemenu.add_command(label="Save as...", command=write_file)
